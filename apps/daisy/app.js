@@ -15,7 +15,7 @@ let IDLE_MINUTES = 26;
 
 let pal1; // palette for 0-40%
 let pal2; // palette for 50-100%
-const infoLine = (3*h/4) - 6;
+const infoLine = (3*h/4);
 const infoWidth = 56;
 const infoHeight = 11;
 var drawingSteps = false;
@@ -113,16 +113,12 @@ function updateSunRiseSunSet(now, lat, lon, line){
 }
 
 const infoData = {
-  ID_DATE:  { calc: () => {var d = (new Date()).toString().split(" "); return d[2] + ' ' + d[1] + ' ' + d[3];} },
-  ID_DAY:   { calc: () => {var d = require("locale").dow(new Date()).toLowerCase(); return d[0].toUpperCase() + d.substring(1);} },
-  ID_SR:    { calc: () => 'SUNRISE ' + sunRise },
-  ID_SS:    { calc: () => 'SUNSET ' + sunSet },
-  ID_STEP:  { calc: () => 'STEPS ' + getSteps() },
-  ID_BATT:  { calc: () => 'BATTERY ' + E.getBattery() + '%' },
-  ID_HRM:   { calc: () => hrmCurrent }
+    ID_BOTH:  { calc: () => {var d = new Date(); var a = require("locale").dow(d); var b = d.toString().split(" "); return b[2] + ' ' + b[1] + ' ' + b[3] + '\n' + a;} },
+    ID_BATT:  { calc: () => 'BATTERY ' + E.getBattery() + '%' },
+    ID_SR:    { calc: () => 'SUNRISE ' + sunRise + '\nSUNSET ' + sunSet },
 };
 
-const infoList = Object.keys(infoData).sort();
+const infoList = Object.keys(infoData);
 let infoMode = infoList[0];
 
 function nextInfo() {
