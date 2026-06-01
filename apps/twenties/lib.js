@@ -38,6 +38,7 @@
       dow: 0b0111110,
       hidden: true,
       group: "Hidden",
+      msg: "Twenties",
       js: JS_DELETE_ALARM_THEN_BUZZ_AND_SETUP
     };
     if (TIME_AT_NEXT_BUZZ <
