@@ -67,16 +67,24 @@ function drawText(text, size){
 
 function countDown() {
   if (!paused) {
-    var text = "";
-    var size = defaultFontSize;
+    var total = ("walk" in currentActivity) ? currentActivity.repetition : 1;
+    var text = rep + "/" + total;
+    g.clear();
+    g.setFontAlign(0, -1); // align to top
+    g.setFont("6x8", defaultFontSize-3);
+    g.drawString(text, g.getWidth() / 2, 5);
+
     if (time) {
-      var total = ("walk" in currentActivity) ? currentActivity.repetition : 1;
-      text += rep + "/" + total + "\n"; // Show the current/total rep count when time is shown
-      size -= 2; // Use smaller font size to fit everything nicely on the screen
+      let pos = g.getFontHeight() + 5;
+      g.setFont("6x8", defaultFontSize-5);
+      g.drawString(time, g.getWidth() / 2, pos);
     }
-    text += (currentMode === "run") ? "Run\n" + counter : "Walk\n" + counter; // Switches output text
-    if (time) text += "\n" + time;
-    drawText(text, size); // draw the current mode and seconds
+
+    text = (currentMode === "run") ? "Run\n" + counter : "Walk\n" + counter; // Switches output text
+    g.setFontAlign(0, 1); // align to bottom
+    g.setFont("6x8", defaultFontSize);
+    g.drawString(text, g.getWidth() / 2, g.getHeight() - 5);
+
     Bangle.setLCDPower(1); // keep the watch LCD lit up
 
     counter--; // Reduce the seconds
